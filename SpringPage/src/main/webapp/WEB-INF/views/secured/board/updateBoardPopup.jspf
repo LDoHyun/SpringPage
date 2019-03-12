@@ -1,0 +1,96 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div class="modal fade" id="updateModal">
+
+	<div class="modal-dialog modal-md">
+
+		<!-- form -->
+		<form id="updateForm" name="updateForm" enctype="multipart/form-data"
+			method="post">
+
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title">게시글 수정</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<div id="article_content" class="modal-body form-group">
+
+					<!-- 추후 hidden 처리 -->
+					<input type="text" id="update_boardReLev" name="update_boardReLev"><br>
+
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label for="update_boardNum"
+								class="control-label input-group-text ml-2">글번호 :</label>
+						</div>
+						<input type="text" id="update_boardNum" name="update_boardNum"
+							class="form-control input-sm mr-2" readonly />
+					</div>
+
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label for="update_boardName"
+								class="control-label input-group-text ml-2">글쓴이 :</label>
+						</div>
+						<input type="text" id="update_boardName" name="update_boardName"
+							class="form-control input-sm mr-2" readonly />
+					</div>
+
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label for="update_boardSub"
+								class="control-label input-group-text ml-2">글제목 :</label>
+						</div>
+						<input type="text" id="update_boardSub" name="update_boardSub"
+							class="form-control input-sm mr-2" />
+					</div>
+
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<label for="update_boardContent"
+								class="control-label input-group-text ml-2">글내용 :</label>
+						</div>
+						<textarea id="update_boardContent" name="update_boardContent"
+							class="form-control input-sm mr-2" cols="10" rows="7"></textarea>
+					</div>
+
+					<!-- <div class="input-group">
+						<div class="input-group-prepend">
+							<label for="update_boardFile" class="control-label input-group-text ml-2">첨부파일 :</label>
+						</div>		
+						
+						file field
+						<div class="custom-file">
+							<span class="btn btn-default btn-file">
+								<label for="update_boardFile_new" class="custom-file-label">파일 선택</label>
+								<input type="file" class="custom-file-input" id="update_boardFile_new" name="update_boardFile_new" /> 
+							</span> 
+						</div>
+						// file field
+						
+					<div class="input-group">
+						<div class="input-group-prepend">	
+							<div class="ml-3 mt-2" id="update_boardFile"></div>
+						</div>
+					</div> -->
+
+				</div>
+
+				<div class="modal-footer">
+
+					<!-- 게시글 수정 버튼 -->
+					<button type="submit" id="update_btn_" class="btn btn-default">글수정</button>
+					<!-- data-dismiss="modal" -->
+
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+
+				</div>
+
+			</div>
+	</div>
+
+	</form>
+
+</div>
+</div>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="oracle_thin-169580752cc-355b6cffcf74d037" provider="oracle" driver="oracle_thin" name="oj" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
+		<connection host="localhost" port="1521" server="" database="xe" url="jdbc:oracle:thin:@//localhost:1521/xe" user="oj" password="HA5mwQ==" home="D:\oraclexe\app\oracle\product\11.2.0\server" type="dev">
+			<property name="useFetchSizeWithLongColumn" value="true"/>
+			<property name="loginTimeout" value="20"/>
+			<provider-property name="@dbeaver-always-use-dba-views@" value="false"/>
+			<provider-property name="@dbeaver-sid-service@" value="SERVICE"/>
+			<provider-property name="@dbeaver-use-rule-hint@" value="false"/>
+			<provider-property name="@dbeaver-connection-type@" value="BASIC"/>
+			<provider-property name="@dbeaver-session-language@" value="KOREAN"/>
+			<provider-property name="@dbeaver-session-territory@" value="KOREA"/>
+			<provider-property name="@dbeaver-check-schema-content@" value="true"/>
+			<provider-property name="@dbeaver-always-show-dba@" value="false"/>
+		</connection>
+	</data-source>
+	<data-source id="oracle_thin-169580e4bbb-1becd73370c08029" provider="oracle" driver="oracle_thin" name="coffee" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
+		<connection host="localhost" port="1521" server="" database="xe" url="jdbc:oracle:thin:@//localhost:1521/xe" user="coffee" password="EAsAJkRGJPc=" home="D:\oraclexe\app\oracle\product\11.2.0\server" type="dev">
+			<property name="useFetchSizeWithLongColumn" value="true"/>
+			<property name="loginTimeout" value="20"/>
+			<provider-property name="@dbeaver-always-use-dba-views@" value="false"/>
+			<provider-property name="@dbeaver-sid-service@" value="SERVICE"/>
+			<provider-property name="@dbeaver-use-rule-hint@" value="false"/>
+			<provider-property name="@dbeaver-connection-type@" value="BASIC"/>
+			<provider-property name="@dbeaver-session-language@" value="KOREAN"/>
+			<provider-property name="@dbeaver-session-territory@" value="KOREA"/>
+			<provider-property name="@dbeaver-check-schema-content@" value="true"/>
+			<provider-property name="@dbeaver-always-show-dba@" value="false"/>
+		</connection>
+	</data-source>
+	<data-source id="oracle_thin-1695a6edbcd-1d6035ad74ddcca4" provider="oracle" driver="oracle_thin" name="Oracle - xe" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
+		<connection host="localhost" port="1521" server="" database="xe" url="jdbc:oracle:thin:@//localhost:1521/xe" user="coffee" password="EAsAJkRGJPc=" home="D:\oraclexe\app\oracle\product\11.2.0\server" type="dev">
+			<property name="useFetchSizeWithLongColumn" value="true"/>
+			<property name="loginTimeout" value="20"/>
+			<provider-property name="@dbeaver-always-use-dba-views@" value="false"/>
+			<provider-property name="@dbeaver-sid-service@" value="SERVICE"/>
+			<provider-property name="@dbeaver-use-rule-hint@" value="false"/>
+			<provider-property name="@dbeaver-connection-type@" value="BASIC"/>
+			<provider-property name="@dbeaver-session-language@" value="KOREAN"/>
+			<provider-property name="@dbeaver-session-territory@" value="KOREA"/>
+			<provider-property name="@dbeaver-check-schema-content@" value="true"/>
+			<provider-property name="@dbeaver-always-show-dba@" value="false"/>
+		</connection>
+	</data-source>
+	<filters/>
+</data-sources>

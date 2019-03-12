@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javateam.SpringPage.mapper.UserMapper">
+ 
+  <select id="getUserByUsername" 
+   resultType="UserVO"
+   parameterType="String">
+   SELECT * FROM users
+   WHERE username = #{username}
+  </select>
+  
+  <select id="getUserLoginByUsername" 
+   resultType="UserLogin"
+   parameterType="String">
+   SELECT * FROM userlogin 
+   WHERE username = #{username}
+ </select>
+ 
+ <select id="getUserRolesByUsername" 
+   resultType="Role"
+   parameterType="String">
+  SELECT * FROM user_roles 
+  WHERE username = #{username}
+ </select>
+ 
+ <select id="hasUsername" 
+   resultType="int"
+   parameterType="String">
+  SELECT count(*) FROM userlogin
+  WHERE username = #{username}
+ </select>
+ 
+ <!-- 회원 아이디 찾기 -->
+ <select id="getIdByNameEmail"
+ 		 resultType="UserVO"
+  		 parameterType="String">
+  SELECT username FROM users
+  WHERE name=#{name} AND email=#{email} 
+ </select>
+ 
+ <!-- 회원 비밀번호 찾기 -->
+ <select id="getWordByNameEmail"
+ 		 resultType="UserLogin"
+   		 parameterType="String">
+  SELECT password FROM userlogin
+  WHERE username = #{username}
+ </select>
+  
+ <!-- 회원 목록 -->
+ <select id="getAllUser" resultType="UserVO"> 
+  SELECT * FROM users ORDER BY name
+ </select>
+ 
+ <!-- 회원 목록 페이징 -->
+ <select id="getAllUserByPagingVO" resultType="UserVO">
+  SELECT * FROM (SELECT ROWNUM, 
+  				 m.*,
+  				 FLOOR((ROWNUM - 1)/10 + 1) page
+ 				 FROM (SELECT * FROM users ORDER BY joindate ASC) m)
+  WHERE page = #{curPage}
+ </select>
+ 
+ <!-- 회원정보 검색 -->
+ <select id="getUserByName" parameterType="String" resultType="UserVO">
+  SELECT * FROM users WHERE 1=1
+  <if test = "username">
+   AND username like '%'||#{username}||'%'
+  </if>
+  <if test = "name">
+   AND name like '%'||#{name}||'%'
+  </if>
+ </select> 
+ 
+ <!-- 회원정보 상세보기 -->
+ <select id="viewUser" resultType="UserVO">
+  SELECT * FROM users WHERE username = #{username}
+ </select>
+ 
+ <!-- 회원가입 -->
+ <insert id="insertUsers" parameterType="UserVO">
+  INSERT INTO users VALUES 
+  (#{username}, #{passhint}, #{passans}, #{name}, 
+   #{postcode}, #{address}, #{address2}, #{phone}, 
+   #{phone2}, #{phone3},  #{email}, #{email2}, 
+   sysdate, #{birthday}, #{chemail}, #{chphone})   
+ </insert>
+ 
+ <insert id="insertUserRoles" parameterType="Role">
+  INSERT INTO user_roles VALUES 
+  (user_roles_seq.nextval, #{username}, #{role})
+ </insert>
+ 
+ <insert id="insertUserLogin" parameterType="UserLogin">
+  INSERT INTO userlogin VALUES 
+  (#{username}, #{password}, #{enabled})
+ </insert>
+ 
+ <!-- 회원정보 수정 -->
+ <update id="updateUser" parameterType="UserUpdateVO">
+  UPDATE users SET passhint = #{passhint},
+				   passans = #{passans},
+				   name = #{name},
+				   postcode =  #{postcode},
+				   address = #{address},
+				   address2 = #{address2},
+				   phone = #{phone},
+				   phone2 = #{phone2},
+				   phone3 = #{phone3},  	
+				   email = #{email},
+				   email2 = #{email2},
+				   birthday = #{birthday},
+				   chemail = #{chemail},
+				   chphone = #{chphone}		   
+  WHERE username = #{username}
+ </update>
+ 
+ <update id="updateUserLogin" >
+  UPDATE userlogin SET password = #{password}
+  WHERE username = #{username}
+ </update>
+ 
+ <!--  기존 회원정보 불러오기 --> 
+ <select id="selectUser" resultType="UserVO">
+  SELECT * FROM users WHERE username = #{username} 
+ </select>
+ 
+ <!-- 회원 삭제 -->
+ <delete id="deleteUserLogin" parameterType="String">
+  DELETE FROM userlogin WHERE username = #{username}
+ </delete>
+ 
+ <delete id="deleteUserRoles" parameterType="String">
+  DELETE FROM user_roles WHERE username = #{username}
+ </delete>
+ 
+  <delete id="deleteUser" parameterType="String">
+  DELETE FROM users WHERE username = #{username}
+ </delete>
+ 
+ <!-- <select id="getUserList" resultMap="UserResult">
+  SELECT * FROM users ORDER BY username
+ </select> -->
+</mapper>

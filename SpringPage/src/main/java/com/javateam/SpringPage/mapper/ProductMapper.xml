@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javateam.SpringPage.mapper.ProductMapper">
+
+<!-- 상품 등록 -->
+<insert id="insertProduct" parameterType="ProductVO">
+       INSERT INTO product     
+       VALUES
+         (product_seq.nextval,
+          #{pname},
+          #{pkind},
+          #{price},
+          #{pfile},
+          #{country},
+          #{hardgrove},
+          #{capacity},
+          #{pcount}
+          )
+</insert>
+
+<!-- 상품 상세보기 -->
+<select id="selectProduct" resultType="ProductVO">
+ SELECT * FROM product WHERE pnum = #{pnum}
+</select>
+
+<!-- 상품 수정 -->
+<update id="updateProduct" parameterType="ProductVO">
+ UPDATE product SET pname = #{pname},
+ 	   			    pkind = #{pkind},
+			 	    price = #{price},
+			 	    pfile = #{pfile},
+			 	    country = #{country},
+			 	    hardgrove = #{hardgrove},
+			        capacity = #{capacity},
+			        pcount = #{pcount}
+ WHERE pnum = #{pnum}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="deleteProduct" parameterType="int">
+ DELETE FROM product
+ WHERE pnum = #{pnum}
+</delete>
+
+<!-- 상품 목록 -->
+<select id="getAllProduct" resultType="ProductVO">
+ SELECT * FROM product ORDER BY pnum ASC
+</select>
+
+<!-- 상품 페이징 -->
+<select id="getProductByPagingVO" resultType="ProductVO">
+ SELECT * FROM (SELECT ROWNUM, 
+  				 m.*,
+  				 FLOOR((ROWNUM - 1)/10 + 1) page
+ 				 FROM (SELECT * FROM product ORDER BY pnum ASC) m)
+  WHERE page = #{curPage}
+</select>
+
+<!-- 상품 검색 -->
+ <select id="getProductByName" parameterType="String" resultType="ProductVO">
+  SELECT * FROM product WHERE 1=1
+  pname like '%'||#{pname}||'%'
+ </select> 
+<!-- ****************************** -->
+
+<!-- 상품구입 -->
+<insert id="orderCoffee" parameterType="OrderVO">
+  INSERT INTO order_tbl     
+       VALUES
+         (#{order_seq},
+          #{pnum},
+          #{pname},
+          #{totprice},
+          #{totshprice},
+          #{pfile},
+          #{hardgrove},
+          #{capacity},
+          #{pcount},
+          #{username},
+          #{name},
+          #{postcode}, #{address}, #{address2}, 
+          #{phone},  #{phone2}, #{phone3},  
+          #{email}, #{email2}, 
+          #{memo}
+          )
+</insert>
+
+<delete id="deleteCoffee" parameterType="int">
+  DELETE FROM order_tbl
+  WHERE pnum = #{pnum}
+</delete>
+
+<select id="getAllCoffee" resultType="OrderVO">
+  SELECT * FROM order_tbl ORDER BY pnum ASC
+</select>
+
+<!-- *********************************** -->
+<!-- 
+<insert id="insertWishList" parameterType="WishListVO">
+  INSERT INTO wishList     
+       VALUES
+         (#{pnum},
+          #{pname},
+          #{pkind},
+          #{price},
+          #{pfile},
+          #{country},
+          #{hardgrove},
+          #{capacity},
+          #{pcount}
+          )
+</insert>
+
+<delete id="deleteWishList" parameterType="int">
+  DELETE FROM wishList
+  WHERE pnum = #{pnum}
+</delete>
+ -->
+<select id="getAllCart" resultType="ProductVO">
+  SELECT * FROM product ORDER BY pnum ASC
+</select>
+
+</mapper>

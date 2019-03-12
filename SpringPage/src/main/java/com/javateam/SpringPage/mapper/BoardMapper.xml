@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javateam.SpringPage.mapper.BoardMapper">
+
+<!-- 게시글 쓰기 -->
+<insert id="writeBoard" parameterType="BoardVO">
+	  <![CDATA[
+	  INSERT INTO board 		
+	  VALUES
+	 (board_seq.nextval, 
+	 #{boardName}, 
+	 #{boardPass}, 
+	 #{boardSub}, 
+	 #{boardContent}, 
+	 #{boardFile}, 
+	 #{boardReRef}, 
+	 #{boardReLev}, 
+	 #{boardReSeq}, 
+	 #{boardReadCount},
+	 sysdate)
+	]]> 
+</insert>
+
+<!-- 게시글 조회 -->
+<select id="selectBoard" parameterType="int" resultType="BoardVO">
+	SELECT * FROM board WHERE boardNum=#{boardNum}
+</select>
+
+<!-- 게시글 목록(페이징) -->
+<select id="getArticleList" resultType="BoardVO">
+	SELECT * FROM (
+                   SELECT
+                          m.*,
+                          FLOOR((ROWNUM - 1)/#{rowsPerPage} + 1) page
+                   FROM (
+                            SELECT * FROM board
+                   		 ORDER BY boardNum ASC, boardReRef DESC, boardReSeq ASC
+                     	 ) m
+       )
+    	WHERE page = #{page}
+</select>	
+
+<!-- 전체 게시글 수 -->
+<select id="getListCount" resultType="int">
+	SELECT COUNT(*) FROM board
+</select>
+
+<!-- 게시글 조회수 수정(업데이트) -->
+<update id="updateReadCount" parameterType="int">
+	UPDATE board SET boardReadCount = boardReadCount + 1
+	WHERE boardNum = #{boardNum}
+</update>
+
+<!-- 게시글 수정 -->
+<update id="updateBoard" parameterType="BoardVO">
+	UPDATE board SET
+		boardSub = #{boardSub},
+		boardContent = #{boardContent},
+		boardFile = #{boardFile},   
+		boardDate = #{boardDate}
+	WHERE boardNum = #{boardNum}
+</update>
+
+<!-- 답변 게시글 원글 및 게시글 순서 수정  -->
+<update id="updateBoardByRefAndSeq">
+	UPDATE board SET boardReSeq = boardReSeq + 1 
+	 WHERE boardReRef = #{boardReRef} 
+	   AND boardReSeq > #{boardReSeq}
+</update>
+
+<!-- 답글 쓰기 -->
+<insert id="replyWriteBoard" parameterType="BoardVO">
+	  <![CDATA[
+	  INSERT INTO board 		
+	  VALUES
+	 (board_seq.nextval, 
+	 #{boardName}, 
+	 #{boardPass}, 
+	 #{boardSub}, 
+	 #{boardContent}, 
+	 '', 
+	 #{boardReRef}, 
+	 #{boardReLev}, 
+	 #{boardReSeq}, 
+	 #{boardReadCount},
+	 sysdate)
+	]]> 
+</insert>
+
+<!-- 공지사항 -->
+<!-- 게시글 쓰기 -->
+<insert id="writeNotice" parameterType="NoticeVO">
+  <![CDATA[
+	 INSERT INTO notice 		
+	 VALUES
+	(notice_seq.nextval, 
+	#{boardName}, 
+	#{boardPass}, 
+	#{boardSub}, 
+	#{boardContent}, 
+	#{boardFile}, 
+	#{boardReRef}, 
+	#{boardReLev}, 
+	#{boardReSeq}, 
+	#{boardReadCount},
+	sysdate)
+	]]> 
+</insert>
+
+<!-- 게시글 조회 -->
+<select id="selectNotice" parameterType="int" resultType="NoticeVO">
+	SELECT * FROM notice WHERE boardNum=#{boardNum}
+</select>
+
+<!-- 게시글 수정 -->
+<update id="updateNotice" parameterType="NoticeVO">
+	UPDATE notice SET
+		boardSub = #{boardSub},
+		boardContent = #{boardContent},
+		boardFile = #{boardFile},   
+		boardDate = #{boardDate}
+	WHERE boardNum = #{boardNum}
+</update>
+
+<!-- 답변 게시글 원글 및 게시글 순서 수정  -->
+<update id="updateNoticeByRefAndSeq">
+	UPDATE notice SET boardReSeq = boardReSeq + 1 
+	 WHERE boardReRef = #{boardReRef} 
+	   AND boardReSeq > #{boardReSeq}
+</update>
+
+<!-- 게시글 목록(페이징) -->
+<select id="getNoticeList" resultType="NoticeVO">
+	SELECT * FROM (
+                   SELECT
+                          m.*,
+                          FLOOR((ROWNUM - 1)/#{rowsPerPage} + 1) page
+                   FROM (
+                            SELECT * FROM notice
+                   		 ORDER BY boardNum ASC, boardReRef DESC, boardReSeq ASC
+                     	 ) m
+       )
+    	WHERE page = #{page}
+</select>
+
+<!-- 전체 게시글 수 -->
+<select id="getListNotice" resultType="int">
+	SELECT COUNT(*) FROM notice
+</select>
+
+<!-- 게시글 조회수 수정(업데이트) -->
+<update id="noticeReadCount" parameterType="int">
+	UPDATE notice SET boardReadCount = boardReadCount + 1
+	WHERE boardNum = #{boardNum}
+</update>	
+</mapper>
